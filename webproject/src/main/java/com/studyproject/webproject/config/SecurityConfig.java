@@ -27,20 +27,22 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthFilter authFilter;
 
-    // User Creation
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserInfoService();
     }
 
-    // Configuring HttpSecurity
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/welcome", "/auth/addNewUser", "/auth/generateToken").permitAll()
+                .requestMatchers("/auth/welcome", "/auth/addNewUser", "/auth/generateToken", "/articles").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/auth/user/**").authenticated()
+                .and()
+                .authorizeHttpRequests().requestMatchers("/articles/userarticles").authenticated()
+                .and()
+                .authorizeHttpRequests().requestMatchers("/articles/create").authenticated()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/auth/admin/**").authenticated()
                 .and()
@@ -52,7 +54,6 @@ public class SecurityConfig {
                 .build();
     }
 
-    // Password Encoding
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

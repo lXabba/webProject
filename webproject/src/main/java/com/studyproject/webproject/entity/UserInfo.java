@@ -1,17 +1,19 @@
 package com.studyproject.webproject.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "userinfo")
 public class UserInfo {
 
     @Id
@@ -22,4 +24,8 @@ public class UserInfo {
     private String password;
     private String roles;
 
+    //@JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
+            mappedBy = "user")
+    List<Article> articles = new ArrayList<>();
 }

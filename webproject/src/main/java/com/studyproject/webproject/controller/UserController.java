@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class UserController {
     @Autowired
-    private
-    UserInfoService service;
+    private UserInfoService service;
 
     @Autowired
     private JwtService jwtService;
