@@ -2,6 +2,7 @@ package com.studyproject.webproject.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.gson.Gson;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,7 @@ public class Article {
     @Column(name = "content", columnDefinition = "text")
     private  String content;
 
-    //@JsonBackReference
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn
     private UserInfo user;
@@ -34,12 +35,12 @@ public class Article {
 
     @Override
     public String toString() {
-        return "Article{" +
+        return "{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", user=" + user.getName() +
                 ", dateOfCreated=" + dateOfCreated +
-                '}';
+                "}\n";
     }
 }
